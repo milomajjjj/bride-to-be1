@@ -28,3 +28,6 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Keep invitation content and media in one browser-safe event configuration module so new templates can customize the celebration centrally.
+- Store RSVP submissions only through a validated, insert-only public server function; the private table has no visitor read or modification policies, preserving guest privacy.

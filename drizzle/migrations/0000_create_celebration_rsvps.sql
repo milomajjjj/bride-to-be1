@@ -1,0 +1,3 @@
+CREATE TABLE public.celebration_rsvps (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), submission_key uuid NOT NULL UNIQUE, event_id text NOT NULL, guest_name text NOT NULL CHECK (char_length(guest_name) BETWEEN 1 AND 100), attendance text NOT NULL CHECK (attendance IN ('accept','decline')), guest_count integer NOT NULL CHECK (guest_count BETWEEN 0 AND 10), message text NOT NULL DEFAULT '' CHECK (char_length(message) <= 1000), created_at timestamptz NOT NULL DEFAULT now());
+GRANT ALL ON public.celebration_rsvps TO service_role;
+ALTER TABLE public.celebration_rsvps ENABLE ROW LEVEL SECURITY;
