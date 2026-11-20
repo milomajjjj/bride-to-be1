@@ -63,7 +63,18 @@ const details = [
         <div className="cover-content"><h1>Bride to Be</h1><p className="bride-name">{event.brideName}</p><Ornament /><p className="cover-subtitle">Before she says I do, let's celebrate her!</p><Button variant="invitation" onClick={() => scrollTo("invitation")}><Heart />Open Your Invitation</Button></div>
         <div className="scroll-cue" aria-hidden="true">A LITTLE LOVE AWAITS<ArrowDown /></div>
       </section>
-      <section id="invitation" className="section message-section"><p className="eyebrow">For our beautiful bride-to-be</p><h2 className="message-title">One last celebration before forever begins.</h2><div className="message-frame"><p className="section-copy">Join us as we gather to celebrate love, laughter, friendship,<br className="hidden sm:block" /> and the beautiful bride-to-be.</p><p className="section-copy mt-5">A special day for a special woman,<br className="hidden sm:block" /> surrounded by the people she loves most.</p></div><Ornament /></section>
+      <section id="invitation" className="section message-section"><p className="eyebrow">For our beautiful bride-to-be</p><h2 className="message-title">One last celebration before forever begins.</h2>
+      <div className="message-frame">
+  <p className="section-copy" dir="rtl">
+    نجتمع اليوم لنحتفل بالحب، والفرح، والصداقة،
+    وبعروستنا الجميلة التي تستحق كل الحب.
+  </p>
+
+  <p className="section-copy mt-5" dir="rtl">
+    يوم مميّز لامرأة مميّزة،
+    محاطة بأحبّ الناس إلى قلبها.
+  </p>
+</div></section>
       <section id="celebration" className="section section-blush"><p className="eyebrow">Save a little time for something lovely</p><h2 className="section-title">The Celebration</h2><p className="section-copy">Good company. A little bubbly. A whole lot of love.</p><div className="detail-grid">
   {details.map(({ icon: Icon, label, value, note }, index) => (
     <article key={label} className="detail-card">
