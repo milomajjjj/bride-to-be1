@@ -15,8 +15,7 @@ Lovable, not by hand. With the [Lovable MCP](https://mcp.lovable.dev)
 connected, `send_message` asks Lovable to do it; otherwise ask the user to
 use the editor.
 
-- **Database.** Do not add or edit `supabase/migrations/` or `drizzle/`.
-  Ask Lovable to change the schema.
+
 - **Generated files.** Do not edit a file whose header says it is automatically
   generated.
 - **AI gateway.** Keep model calls on Lovable's gateway, and keep

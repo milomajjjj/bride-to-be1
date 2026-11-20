@@ -197,7 +197,14 @@ body { margin: 0; }
 .message-title { font-family:var(--font-script); font-size:46px; color:var(--rose); margin:15px 0 20px; font-weight:400; }
 .message-frame { max-width:780px; margin:0 auto; padding:30px 40px; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
 .section-blush { background:var(--blush); }
-.detail-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; max-width:980px; margin:38px auto 30px; }
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-content: center;
+  max-width: 750px;
+  margin-inline: auto;
+  gap: 24px;
+}
 .detail-card { padding:30px 12px; background:var(--background); border:1px solid var(--border); border-radius:5px; }
 .detail-card svg { width:24px; height:24px; color:var(--gold); stroke-width:1; margin:0 auto 15px; }
 .detail-card h3 { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin:0 0 12px; }

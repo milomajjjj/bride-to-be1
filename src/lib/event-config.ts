@@ -1,6 +1,10 @@
-import hero from "@/assets/bridal-hero.png.asset.json";
-import wide from "@/assets/bridal-wide.png.asset.json";
-import details from "@/assets/bridal-details.png.asset.json";
+import hero from "../assets/bridal-hero.png";
+import wide from "../assets/bridal-wide.png?url";
+import details from "../assets/bridal-details.png";
+import bridePortrait from "../assets/bride-portrait.png";
+import brideCelebration from "../assets/bride-celebration.png";
+import brideAndSister from "../assets/bride-and-sister.png";
+
 
 // Sample celebration details. Customize this single object for each invitation.
 export const eventConfig = {
@@ -17,7 +21,16 @@ export const eventConfig = {
   mapsQuery: "Beirut Lebanon",
   dressCode: "Pretty in Pink",
   dressDescription: "Let's make this celebration picture-perfect! Dress in your favorite shades of pink, blush, nude, or champagne.",
-  images: { hero: hero.url, wide: wide.url, mood: details.url },
+  images: {
+  hero,
+  wide,
+  mood: details,
+  gallery: [
+    bridePortrait,
+    brideCelebration,
+    brideAndSister,
+  ],
+},
   rsvp: { enabled: true, maxGuests: 10, replyBy: "May 1, 2027" },
 };
 
