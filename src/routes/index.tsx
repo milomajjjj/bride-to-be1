@@ -22,7 +22,7 @@ function Countdown() {
   const [now, setNow] = useState<number | null>(null);
   useEffect(() => { setNow(Date.now()); const timer = setInterval(() => setNow(Date.now()), 1000); return () => clearInterval(timer); }, []);
   const values = now === null ? { days: 0, hours: 0, minutes: 0, seconds: 0 } : getCountdown(event.startsAt, now);
-  return <section className="section"><p className="eyebrow">Every moment brings us closer</p><h2 className="section-title">Counting Down to the Celebration</h2><div className="countdown" aria-label="Time until the celebration">{Object.entries(values).map(([label, value]) => <div className="countdown-cell" key={label}><div className="countdown-number">{now === null ? "—" : String(value).padStart(2, "0")}</div><div className="countdown-label">{label}</div></div>)}</div></section>;
+  return <section className="section section-blush"><p className="eyebrow">Every moment brings us closer</p><h2 className="section-title">Counting Down to the Celebration</h2><div className="countdown" aria-label="Time until the celebration">{Object.entries(values).map(([label, value]) => <div className="countdown-cell" key={label}><div className="countdown-number">{now === null ? "—" : String(value).padStart(2, "0")}</div><div className="countdown-label">{label}</div></div>)}</div></section>;
 }
 function Index() {
   const [photo, setPhoto] = useState<string | null>(null);
@@ -60,7 +60,7 @@ const details = [
   alt="Bride to Be invitation"
   fetchPriority="high"
 />
-        <div className="cover-content"><p className="eyebrow">You're invited to celebrate</p><p className="cover-pretitle">A Little Celebration Before the Big Day</p><h1>Bride to Be</h1><p className="bride-name">{event.brideName}</p><Ornament /><p className="cover-subtitle">Before she says I do, let's celebrate her!</p><Button variant="invitation" onClick={() => scrollTo("invitation")}><Heart />Open Your Invitation</Button><p className="cover-date">{event.weekday}, {event.date} <span aria-hidden="true"> · </span> {event.location}</p></div>
+        <div className="cover-content"><h1>Bride to Be</h1><p className="bride-name">{event.brideName}</p><Ornament /><p className="cover-subtitle">Before she says I do, let's celebrate her!</p><Button variant="invitation" onClick={() => scrollTo("invitation")}><Heart />Open Your Invitation</Button></div>
         <div className="scroll-cue" aria-hidden="true">A LITTLE LOVE AWAITS<ArrowDown /></div>
       </section>
       <section id="invitation" className="section message-section"><p className="eyebrow">For our beautiful bride-to-be</p><h2 className="message-title">One last celebration before forever begins.</h2><div className="message-frame"><p className="section-copy">Join us as we gather to celebrate love, laughter, friendship,<br className="hidden sm:block" /> and the beautiful bride-to-be.</p><p className="section-copy mt-5">A special day for a special woman,<br className="hidden sm:block" /> surrounded by the people she loves most.</p></div><Ornament /></section>
@@ -91,23 +91,32 @@ const details = [
       <Countdown />
       <section id="dress-code" className="section"><p className="eyebrow">The dress code</p><h2 className="section-title">{event.dressCode}</h2><p className="section-copy">{event.dressDescription}</p><img className="mood-image" src={event.images.mood} alt="Blush silk dress, roses, pearl accessories, champagne glasses and an elegant cake" loading="lazy" /><div className="swatches">{["Pink", "Blush", "Nude", "Champagne"].map(color => <div key={color}><div className={`swatch swatch-${color.toLowerCase()}`} /><span>{color}</span></div>)}</div></section>
       <InvitationRsvp />
-      <section className="section"><p className="eyebrow">A glimpse of the lovely things to come</p><h2 className="section-title">A Little Inspiration</h2><div className="gallery-grid">
-  {event.images.gallery.map((src, index) => (
-    <Button
-      variant="ghost"
-      className="gallery-item"
-      key={index}
-      onClick={() => setPhoto(src)}
-      aria-label={`Enlarge bridal inspiration ${index + 1}`}
-    >
-      <img
-        src={src}
-        alt="Bride to Be celebration inspiration"
-        loading="lazy"
-      />
-    </Button>
-  ))}
-</div></section>
+      <section className="section inspiration-section">
+  <p className="eyebrow">A glimpse of the lovely things to come</p>
+  <h2 className="section-title">A Little Inspiration</h2>
+
+  <div className="gallery-grid gallery-editorial">
+    {event.images.gallery.map((src, index) => (
+      <Button
+        variant="ghost"
+        className={`gallery-item gallery-item-${index + 1}`}
+        key={index}
+        onClick={() => setPhoto(src)}
+        aria-label={`Enlarge bridal inspiration ${index + 1}`}
+      >
+        <img
+          src={src}
+          alt="Bride to Be celebration inspiration"
+          loading="lazy"
+        />
+      </Button>
+    ))}
+  </div>
+
+  <p className="gallery-caption">
+    Beautiful moments are even better when shared.
+  </p>
+</section>
       <section className="section closing"><img className="closing-florals" src={event.images.hero} loading="lazy" alt="" /><Wine className="mx-auto mb-6 h-7 w-7 text-gold" strokeWidth={1} /><h2 className="section-title">Here's to love, laughter,<br />and a lifetime of happiness!</h2><p className="section-copy">Can't wait to celebrate with you!</p><p className="closing-name">With love, {event.brideName}</p><Ornament /><p className="footer-note">A LITTLE CELEBRATION. A BEAUTIFUL BEGINNING.</p></section>
     </main>
     <Dialog open={photo !== null} onOpenChange={open => { if (!open) setPhoto(null); }}><DialogContent className="max-w-4xl"><DialogTitle className="sr-only">Bridal inspiration photograph</DialogTitle>{photo && <img src={photo} alt="Bridal celebration inspiration" className="max-h-[80svh] w-full object-contain" />}</DialogContent></Dialog>
