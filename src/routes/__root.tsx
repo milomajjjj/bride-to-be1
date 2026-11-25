@@ -24,11 +24,12 @@ function NotFoundComponent() {
         </p>
         <div className="mt-6">
           <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
-          </Link>
+  to="/"
+  search={{ token: "" }}
+  className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+>
+  Go home
+</Link>
         </div>
       </div>
     </div>
@@ -78,18 +79,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     // Replace these placeholders with the app's name and description when first building the app.
     // Each content route, / included, must still set its own head(). Never add og:image or
     // twitter:image here: every page without its own would inherit the root's preview image.
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Bride to Be — A Celebration of Sophia" },
-      { name: "description", content: "A little celebration before the big day. An intimate bride-to-be invitation." },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Bride to Be — A Celebration of Sophia" },
-      { property: "og:description", content: "Before she says I do, let's celebrate her." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
-    ],
+ meta: [
+  { charSet: "utf-8" },
+  { name: "viewport", content: "width=device-width, initial-scale=1" },
+  { title: "Bride to Be — You're Invited" },
+  {
+    name: "description",
+    content: "A beautiful celebration for a special bride-to-be.",
+  },
+  { name: "author", content: "Bride to Be" },
+  { property: "og:type", content: "website" },
+  { name: "twitter:card", content: "summary_large_image" },
+],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },

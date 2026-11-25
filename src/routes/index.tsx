@@ -21,23 +21,53 @@ import {
   type InvitationData,
 } from "@/components/invitation-rsvp";
 import { eventConfig as event, getCountdown } from "@/lib/event-config";
+import { getInvitationByToken } from "@/lib/invitation.functions";
 
 const API_URL = import.meta.env["VITE_API_URL"];
 
+
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Bride to Be | You're Invited" },
-      {
-        name: "description",
-        content: "Celebrate a beautiful bride-to-be.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
+ validateSearch: (search) => ({
+  token: typeof search["token"] === "string" ? search["token"] : "",
+}),
+
+  loaderDeps: ({ search }) => ({
+    token: search.token,
   }),
+
+  loader: ({ deps }) =>
+    deps.token
+      ? getInvitationByToken({ data: { token: deps.token } })
+      : null,
+
+  head: ({ loaderData }) => {
+    const brideName =
+      loaderData?.invitation?.wedding?.settings?.bride_name ||
+      "Bride to Be";
+
+    const title = `Bride to Be — A Celebration of ${brideName}`;
+
+    return {
+      meta: [
+        { title },
+        {
+          name: "description",
+          content: `You're invited to celebrate ${brideName}!`,
+        },
+        { property: "og:title", content: title },
+        {
+          property: "og:description",
+          content: `Join us for a beautiful celebration of ${brideName}.`,
+        },
+        { property: "og:type", content: "website" },
+        { name: "twitter:card", content: "summary_large_image" },
+      ],
+    };
+  },
+
   component: Index,
 });
+
 
 function Ornament() {
   return (
@@ -84,58 +114,20 @@ function Countdown({ startsAt }: { startsAt: string }) {
   );
 }
 
+
+
 function Index() {
-  const [invitation, setInvitation] = useState<InvitationData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const { token } = Route.useSearch();
+  const loaderData = Route.useLoaderData();
+
+  const invitation = loaderData?.invitation ?? null;
+  const loading = false;
+  const error = !token
+    ? "Please open your personal invitation link."
+    : loaderData?.error ?? "";
+
   const [photo, setPhoto] = useState<string | null>(null);
 
-  const token =
-    typeof window !== "undefined"
-      ? new URLSearchParams(window.location.search).get("token")
-      : null;
-
-  useEffect(() => {
-    async function loadInvitation() {
-      if (!token) {
-        setError("Please open your personal invitation link.");
-        setLoading(false);
-        return;
-      }
-
-      try {
-        const response = await fetch(
-          `${API_URL}/api/invitation/${encodeURIComponent(token)}`,
-          {
-            headers: {
-              Accept: "application/json",
-            },
-          }
-        );
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.message || "Invitation not found.");
-        }
-
-        setInvitation(data);
-
-        const brideName =
-          data.wedding?.settings?.bride_name || "Bride to Be";
-
-        document.title = `${brideName} — Bride to Be | You're Invited`;
-      } catch (err) {
-        setError(
-          err instanceof Error ? err.message : "Could not load invitation."
-        );
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadInvitation();
-  }, [token]);
 
   useEffect(() => {
     if (loading || !invitation) return;
